@@ -1,7 +1,7 @@
-// labtest
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib>
 using namespace std;
 
 struct Option {
@@ -69,9 +69,7 @@ int degree(int var) {
 }
 
 int selectMRV() {
-    int best = -1;
-    int minSize = 100;
-    int maxDegree = -1;
+    int best = -1, minSize = 100, maxDegree = -1;
 
     for (int i = 0; i < 3; i++) {
         if (assigned[i] != -1) continue;
@@ -135,12 +133,8 @@ bool solve() {
         cout << "Domains after Forward Checking:\n";
         showDomains();
 
-        if (forwardCheck()) {
-            if (solve())
-                return true;
-        } else {
-            cout << "Domain became empty. Backtracking required.\n";
-        }
+        if (forwardCheck() && solve())
+            return true;
 
         cout << "Backtracking from " << name[var] << endl;
         assigned[var] = -1;
